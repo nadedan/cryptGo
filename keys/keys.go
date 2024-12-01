@@ -1,8 +1,9 @@
 package keys
 
 import (
+	_ "embed"
 	"encoding/json"
-	"os"
+	"strings"
 )
 
 type Keys struct {
@@ -17,15 +18,13 @@ type Keys struct {
 	}
 }
 
+//go:embed secrets.json
+var secrets string
+
 func Get() (Keys, error) {
 	k := Keys{}
 
-	f, err := os.Open("./secrets.json")
-	if err != nil {
-		return k, nil
-	}
-
-	dec := json.NewDecoder(f)
+	dec := json.NewDecoder(strings.NewReader(secrets))
 	dec.Decode(&k)
 
 	return k, nil
