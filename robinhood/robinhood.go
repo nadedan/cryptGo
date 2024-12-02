@@ -28,7 +28,7 @@ type Keys struct {
 }
 
 func timestamp() int {
-	return int(time.Now().UTC().UnixMilli())
+	return int(time.Now().UTC().Unix())
 }
 
 func NewHandler(keys Keys) (*Handler, error) {
